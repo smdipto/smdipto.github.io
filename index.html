@@ -86,12 +86,12 @@
   .hero {
     max-width: 900px; margin: 0 auto;
     padding: 10rem 2rem 6rem;
-    display: grid; grid-template-columns: 1fr 200px; gap: 3rem; align-items: end;
+    display: grid; grid-template-columns: 1fr 300px; gap: 0; align-items: stretch;
   }
 
   .hero h1 {
     font-family: var(--serif); font-size: 2.8rem; font-weight: 700;
-    line-height: 1.2; letter-spacing: -0.03em;
+    line-height: 1.2; letter-spacing: -0.03em; padding-right: 2rem;
   }
   .hero h1 em { font-style: italic; color: var(--accent); }
 
@@ -109,13 +109,13 @@
   .hero-links a:hover { color: var(--accent); border-color: var(--accent); }
 
   .hero-photo {
-    width: 200px; height: 240px; background: var(--highlight);
-    border: 1px solid var(--border); display: flex; align-items: center;
-    justify-content: center; font-family: var(--mono); font-size: 0.7rem;
-    color: var(--muted); position: relative; overflow: hidden;
+    width: 100%; height: 100%; min-height: 320px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
+    position: relative; overflow: hidden;
   }
-  .hero-photo::before {
-    content: ''; position: absolute; inset: 6px; border: 1px solid var(--border);
+  .hero-photo img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center top;
   }
 
   /* ── SECTIONS ── */
@@ -411,8 +411,8 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     .hero { grid-template-columns: 1fr; padding: 8rem 1.5rem 4rem; }
-    .hero-photo { width: 140px; height: 170px; order: -1; }
-    .hero h1 { font-size: 2rem; }
+    .hero-photo { width: 100%; height: 250px; min-height: unset; order: -1; }
+    .hero h1 { font-size: 2rem; padding-right: 0; }
     nav ul { display: none; }
     nav ul.open {
       display: flex; flex-direction: column; position: fixed; inset: 0;
@@ -463,8 +463,8 @@
       <a href="mailto:shakibmdipto@gmail.com">Email</a>
     </div>
   </div>
-  <div class="hero-photo fade-in">
-  <img src="photos/profile.jpg" alt="Shakib Mahmud Dipto">
+  <div class="hero-photo fade-in">your photo
+<img src="photos/dp.jpeg" alt="Shakib Mahmud Dipto">
 </div>
 </header>
 
