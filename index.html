@@ -288,6 +288,45 @@
   }
   .back-to-top:hover { color: var(--accent); }
 
+  /* ── TEACHING ── */
+  .teaching-block { margin-bottom: 2.5rem; }
+  .teaching-block:last-child { margin-bottom: 0; }
+
+  .teaching-block-header {
+    font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--muted); margin-bottom: 1rem;
+    padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+  }
+  .teaching-block-header span {
+    font-style: italic; text-transform: none; letter-spacing: 0;
+    color: var(--accent); font-size: 0.7rem;
+  }
+
+  .course-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  }
+  .course-item {
+    display: flex; align-items: baseline; gap: 1rem;
+    padding: 0.7rem 1rem; border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .course-item:hover { background: var(--highlight); }
+  .course-code {
+    font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
+    color: var(--accent); white-space: nowrap; min-width: 90px;
+  }
+  .course-name {
+    font-size: 0.88rem; color: var(--ink);
+  }
+  .teaching-note {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+    margin-bottom: 1.5rem; font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .course-grid { grid-template-columns: 1fr; }
+  }
+
   /* ── GALLERY ── */
   .gallery-filter-bar {
     display: flex; gap: 0.6rem; margin-bottom: 2rem; flex-wrap: wrap;
@@ -436,7 +475,7 @@
 <!-- NAV -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="#" class="logo">Shakib M. Dipto<span>.</span></a>
+    <a href="#" class="logo">SMD<span>.</span></a>
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
@@ -444,6 +483,7 @@
       <li><a href="#research">Research</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#teaching">Teaching</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -464,7 +504,7 @@
     </div>
   </div>
   <div class="hero-photo fade-in">
-<img src="photos/profile.jpeg" alt="Shakib Mahmud Dipto">
+  <img src="photos/profile.jpeg" alt="Shakib Mahmud Dipto">
 </div>
 </header>
 
@@ -871,10 +911,117 @@
 
 <div class="divider"></div>
 
+<!-- TEACHING -->
+<section id="teaching">
+  <div class="fade-in">
+    <div class="section-label">04 — Teaching</div>
+    <h2>Courses Taught</h2>
+  </div>
+
+  <div class="teaching-block fade-in">
+    <div class="teaching-block-header">Old Dominion University, USA <span>— Graduate Teaching Assistant Instructor</span></div>
+    <div class="course-grid">
+      <div class="course-item">
+        <span class="course-code">CS 120</span>
+        <span class="course-name">Introduction to Information Literacy and Research</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CS 121</span>
+        <span class="course-name">Introduction to Information Literacy and Research for Scientists</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="teaching-block fade-in">
+    <div class="teaching-block-header">University of Liberal Arts Bangladesh (ULAB) <span>— Lecturer</span></div>
+    <div class="course-grid">
+      <div class="course-item">
+        <span class="course-code">CSE 1102</span>
+        <span class="course-name">Introduction to Programming</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CSE 1302</span>
+        <span class="course-name">Data Structures Lab</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CSE 2101</span>
+        <span class="course-name">Digital Logic Design</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CSE 2202</span>
+        <span class="course-name">Algorithms Lab</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CSE 2103</span>
+        <span class="course-name">Object Oriented Programming</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CSE 2104</span>
+        <span class="course-name">Object Oriented Programming Lab</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CSE 3101</span>
+        <span class="course-name">Microprocessor and Microcontroller</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CSE 3102</span>
+        <span class="course-name">Microprocessor and Microcontroller Lab</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CSE 3201</span>
+        <span class="course-name">Artificial Intelligence &amp; Machine Learning</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CSE 3202</span>
+        <span class="course-name">Artificial Intelligence &amp; Machine Learning Lab</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">MAT 1101</span>
+        <span class="course-name">Differential and Integral Calculus</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CSE 4418</span>
+        <span class="course-name">Internet of Things Lab</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="teaching-block fade-in">
+    <div class="teaching-block-header">Brac University, Bangladesh <span>— Graduate Research Assistant</span></div>
+    <div class="course-grid">
+      <div class="course-item">
+        <span class="course-code">CSE 422</span>
+        <span class="course-name">Artificial Intelligence</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="teaching-block fade-in">
+    <div class="teaching-block-header">Brac University, Bangladesh <span>— Undergraduate Teaching Assistant</span></div>
+    <div class="course-grid">
+      <div class="course-item">
+        <span class="course-code">CSE 110</span>
+        <span class="course-name">Programming Language I</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CSE 111</span>
+        <span class="course-name">Programming Language II</span>
+      </div>
+      <div class="course-item">
+        <span class="course-code">CSE 220</span>
+        <span class="course-name">Data Structure</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
 <!-- SKILLS -->
 <section id="skills">
   <div class="fade-in">
-    <div class="section-label">04 — Technical</div>
+    <div class="section-label">05 — Technical</div>
     <h2>Technical Strengths</h2>
   </div>
   <div class="skills-grid fade-in">
@@ -910,7 +1057,7 @@
 <!-- GALLERY -->
 <section id="gallery">
   <div class="fade-in">
-    <div class="section-label">05 — Gallery</div>
+    <div class="section-label">06 — Gallery</div>
     <h2>Photo Gallery</h2>
   </div>
 
@@ -1018,7 +1165,7 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="fade-in">
-    <div class="section-label">06 — Contact</div>
+    <div class="section-label">07 — Contact</div>
     <h2>Get in Touch</h2>
   </div>
   <div class="contact-grid fade-in">
