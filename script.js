@@ -128,3 +128,33 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') navLightbox(-1);
   if (e.key === 'ArrowRight') navLightbox(1);
 });
+
+// ── Touch swipe for lightbox ──
+let touchStartX = 0;
+let touchEndX = 0;
+
+lightbox.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+lightbox.addEventListener('touchend', (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  const swipeDistance = touchStartX - touchEndX;
+  if (Math.abs(swipeDistance) > 50) {
+    navLightbox(swipeDistance > 0 ? 1 : -1);
+  }
+}, { passive: true });
+
+// ── Prevent body scroll when mobile menu is open ──
+menuToggle.addEventListener('click', () => {
+  if (navMenu.classList.contains('open')) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+});
+navMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.body.style.overflow = '';
+  });
+});
