@@ -1,4 +1,4 @@
-<h2 class="sr-only">Composite Trust Score</h2>
+<h2 class="sr-only">Composite Trust Score Calculator</h2>
 <style>
   .sig-row { display:flex; align-items:center; gap:10px; margin:6px 0; font-size:14px; }
   .sig-label { width:110px; color:var(--color-text-secondary); }
@@ -43,7 +43,7 @@
       <p style="font-size:14px;font-weight:500;margin:0 0 8px;color:var(--color-text-secondary);">Adaptive threshold</p>
       <div class="weight-row">
         <span class="weight-label">k value</span>
-        <input type="range" min="0.1" max="3.0" value="1.5" step="0.1" id="k_val" style="flex:1" oninput="update()">
+        <input type="range" min="-2.0" max="3.0" value="1.5" step="0.1" id="k_val" style="flex:1" oninput="update()">
         <span class="weight-val" id="k_val_v">1.5</span>
       </div>
       <p style="font-size:12px;color:var(--color-text-tertiary);margin:6px 0 0;">Threshold = mean - k * std</p>
@@ -89,11 +89,11 @@
     </div>
 
     <div class="client-card" id="card_stealthy">
-      <p class="client-title" style="color:#854F0B">Clean Clients</p>
+      <p class="client-title" style="color:#854F0B">No attacker</p>
       <div class="sig-row"><span class="sig-label">Acc ratio</span><span class="sig-val">0.91</span></div>
       <div class="sig-row"><span class="sig-label">Loss ratio</span><span class="sig-val">0.85</span></div>
       <div class="sig-row"><span class="sig-label">Cosine sim</span><span class="sig-val">0.78</span></div>
-      <div class="sig-row"><span class="sig-label">Grad norm</span><span class="sig-val">2.1</span></div>
+      <div class="sig-row"><span class="sig-label">Grad norm</span><span class="sig-val">1.2</span></div>
       <div style="border-top:0.5px solid var(--color-border-tertiary);margin-top:10px;padding-top:10px">
         <span style="font-size:12px;color:var(--color-text-secondary)">Composite score</span>
         <div style="display:flex;align-items:baseline;gap:8px">
@@ -112,7 +112,7 @@
 const clients = {
   healthy:  { acc:0.98, loss:1.02, cos:0.97, grad:0.8 },
   flipper:  { acc:0.52, loss:0.40, cos:0.61, grad:4.2 },
-  clean: { acc:0.91, loss:0.85, cos:0.78, grad:1.2 },
+  stealthy: { acc:0.91, loss:0.85, cos:0.78, grad:2.1 },
 };
 
 function computeScore(c, wA, wL, wC, wG) {
