@@ -5,470 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shakib Mahmud Dipto — Researcher</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --ink: #1a1a1a;
-    --paper: #faf9f7;
-    --accent: #c2432e;
-    --muted: #6b6b6b;
-    --border: #e2e0dc;
-    --highlight: #f0eeeb;
-    --serif: 'Libre Baskerville', Georgia, serif;
-    --sans: 'DM Sans', sans-serif;
-    --mono: 'JetBrains Mono', monospace;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--sans);
-    background: var(--paper);
-    color: var(--ink);
-    font-size: 16px;
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  ::selection { background: var(--accent); color: white; }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; width: 100%; z-index: 100;
-    background: rgba(250, 249, 247, 0.85);
-    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    transition: box-shadow 0.3s;
-  }
-  nav.scrolled { box-shadow: 0 1px 12px rgba(0,0,0,0.06); }
-
-  nav .nav-inner {
-    max-width: 900px; margin: 0 auto; padding: 0 2rem;
-    display: flex; justify-content: space-between; align-items: center; height: 60px;
-  }
-
-  nav .logo {
-    font-family: var(--serif); font-size: 1.1rem; font-weight: 700;
-    color: var(--ink); text-decoration: none; letter-spacing: -0.02em;
-  }
-  nav .logo span { color: var(--accent); }
-
-  nav ul { list-style: none; display: flex; gap: 2rem; }
-
-  nav a {
-    text-decoration: none; color: var(--muted); font-size: 0.85rem;
-    font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
-    transition: color 0.2s; position: relative;
-  }
-  nav ul a::after {
-    content: ''; position: absolute; bottom: -4px; left: 0;
-    width: 0; height: 1.5px; background: var(--accent); transition: width 0.25s ease;
-  }
-  nav ul a:hover { color: var(--ink); }
-  nav ul a:hover::after { width: 100%; }
-
-  .menu-toggle {
-    display: none; background: none; border: none; cursor: pointer;
-    width: 28px; height: 20px; position: relative; z-index: 110;
-  }
-  .menu-toggle span {
-    display: block; width: 100%; height: 2px; background: var(--ink);
-    position: absolute; left: 0; transition: all 0.3s ease;
-  }
-  .menu-toggle span:nth-child(1) { top: 0; }
-  .menu-toggle span:nth-child(2) { top: 9px; }
-  .menu-toggle span:nth-child(3) { top: 18px; }
-  .menu-toggle.active span:nth-child(1) { top: 9px; transform: rotate(45deg); }
-  .menu-toggle.active span:nth-child(2) { opacity: 0; }
-  .menu-toggle.active span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
-
-  /* ── HERO ── */
-  .hero {
-    max-width: 900px; margin: 0 auto;
-    padding: 10rem 2rem 6rem;
-    display: grid; grid-template-columns: 1fr 300px; gap: 0; align-items: stretch;
-  }
-
-  .hero h1 {
-    font-family: var(--serif); font-size: 2.8rem; font-weight: 700;
-    line-height: 1.2; letter-spacing: -0.03em; padding-right: 2rem;
-  }
-  .hero h1 em { font-style: italic; color: var(--accent); }
-
-  .hero p {
-    margin-top: 1.5rem; font-size: 1.05rem; color: var(--muted);
-    max-width: 540px; line-height: 1.8;
-  }
-
-  .hero-links { margin-top: 2rem; display: flex; gap: 1.2rem; flex-wrap: wrap; }
-  .hero-links a {
-    font-family: var(--mono); font-size: 0.78rem; color: var(--muted);
-    text-decoration: none; padding: 0.4rem 0; border-bottom: 1px solid var(--border);
-    transition: all 0.2s; letter-spacing: 0.02em;
-  }
-  .hero-links a:hover { color: var(--accent); border-color: var(--accent); }
-
-  .hero-photo {
-    width: 100%; height: 100%; min-height: 320px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
-    position: relative; overflow: hidden;
-  }
-  .hero-photo img {
-    width: 100%; height: 100%; object-fit: cover; object-position: center top;
-  }
-
-  /* ── SECTIONS ── */
-  section { max-width: 900px; margin: 0 auto; padding: 5rem 2rem; }
-
-  .section-label {
-    font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase;
-    letter-spacing: 0.15em; color: var(--accent); margin-bottom: 0.5rem;
-    display: flex; align-items: center; gap: 0.75rem;
-  }
-  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-  section h2 {
-    font-family: var(--serif); font-size: 1.8rem; font-weight: 700;
-    letter-spacing: -0.02em; margin-bottom: 2rem;
-  }
-
-  .divider { max-width: 900px; margin: 0 auto; padding: 0 2rem; height: 1px; background: var(--border); }
-
-  /* ── RESEARCH ── */
-  .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-
-  .research-card {
-    border: 1px solid var(--border); padding: 1.8rem; transition: all 0.3s ease;
-    position: relative; background: white;
-  }
-  .research-card::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0;
-    background: var(--accent); transition: height 0.3s ease;
-  }
-  .research-card:hover {
-    border-color: var(--accent); transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-  }
-  .research-card:hover::before { height: 100%; }
-
-  .research-card h3 {
-    font-family: var(--serif); font-size: 1.05rem; font-weight: 700;
-    margin-bottom: 0.6rem; line-height: 1.4;
-  }
-  .research-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
-
-  .research-tag {
-    display: inline-block; font-family: var(--mono); font-size: 0.65rem;
-    text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent);
-    background: rgba(194, 67, 46, 0.06); padding: 0.2rem 0.6rem; margin-top: 1rem;
-  }
-
-  /* ── PUBLICATIONS ── */
-  .pub-filter-bar {
-    display: flex; gap: 0.6rem; margin-bottom: 2rem; flex-wrap: wrap;
-  }
-  .pub-filter-btn {
-    font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase;
-    letter-spacing: 0.06em; padding: 0.4rem 1rem; border: 1px solid var(--border);
-    background: none; color: var(--muted); cursor: pointer; transition: all 0.2s;
-  }
-  .pub-filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .pub-filter-btn.active {
-    background: var(--accent); color: white; border-color: var(--accent);
-  }
-
-  .pub-list { list-style: none; }
-
-  .pub-item {
-    padding: 1.6rem 0; border-bottom: 1px solid var(--border);
-    display: grid; grid-template-columns: 60px 1fr; gap: 1.5rem;
-    align-items: start; transition: all 0.2s; cursor: pointer;
-    text-decoration: none; color: inherit;
-  }
-  .pub-item:first-child { border-top: 1px solid var(--border); }
-  .pub-item:hover { background: var(--highlight); margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem; }
-  .pub-item.hidden { display: none; }
-
-  .pub-external-icon {
-    font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
-    margin-top: 0.5rem; display: inline-flex; align-items: center; gap: 0.3rem;
-    transition: color 0.2s;
-  }
-  .pub-item:hover .pub-external-icon { color: var(--accent); }
-
-  .pub-year { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); padding-top: 0.15rem; }
-
-  .pub-content h3 {
-    font-family: var(--serif); font-size: 0.95rem; font-weight: 700;
-    line-height: 1.5; margin-bottom: 0.3rem;
-  }
-  .pub-authors { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
-  .pub-authors strong { color: var(--ink); font-weight: 600; }
-
-  .pub-venue {
-    font-family: var(--mono); font-size: 0.7rem; color: var(--accent);
-    text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.4rem;
-    display: inline-block;
-  }
-
-  .pub-links { margin-top: 0.5rem; display: flex; gap: 1rem; }
-  .pub-links a {
-    font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
-    text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.2s;
-  }
-  .pub-links a:hover { color: var(--accent); border-color: var(--accent); }
-
-  .pub-count {
-    font-family: var(--mono); font-size: 0.75rem; color: var(--muted);
-    margin-bottom: 1.5rem;
-  }
-
-  /* ── CV ── */
-  .cv-section { margin-bottom: 3rem; }
-  .cv-section:last-child { margin-bottom: 0; }
-
-  .cv-section h3 {
-    font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase;
-    letter-spacing: 0.12em; color: var(--muted); margin-bottom: 1.2rem;
-    padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
-  }
-
-  .cv-entry {
-    display: grid; grid-template-columns: 160px 1fr; gap: 1.5rem;
-    margin-bottom: 1.2rem; align-items: baseline;
-  }
-  .cv-date { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
-  .cv-detail h4 { font-size: 0.95rem; font-weight: 500; }
-  .cv-detail p { font-size: 0.85rem; color: var(--muted); }
-
-  /* ── SKILLS ── */
-  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-  .skill-group h3 {
-    font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase;
-    letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.8rem;
-    padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
-  }
-  .skill-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .skill-tag {
-    font-family: var(--mono); font-size: 0.72rem; padding: 0.3rem 0.7rem;
-    border: 1px solid var(--border); color: var(--ink); background: white;
-    transition: all 0.2s;
-  }
-  .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* ── CONTACT ── */
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-  .contact-text p { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
-  .contact-info { list-style: none; }
-  .contact-info li {
-    font-family: var(--mono); font-size: 0.82rem; margin-bottom: 0.8rem;
-    display: flex; gap: 0.6rem; align-items: center;
-  }
-  .contact-info li span.label {
-    color: var(--muted); min-width: 70px; text-transform: uppercase;
-    font-size: 0.68rem; letter-spacing: 0.1em;
-  }
-  .contact-info li a {
-    color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--border);
-    transition: all 0.2s;
-  }
-  .contact-info li a:hover { color: var(--accent); border-color: var(--accent); }
-
-  /* ── FOOTER ── */
-  footer {
-    max-width: 900px; margin: 0 auto; padding: 3rem 2rem;
-    border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  footer p { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; }
-  .back-to-top {
-    font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
-    text-decoration: none; transition: color 0.2s;
-  }
-  .back-to-top:hover { color: var(--accent); }
-
-  /* ── TEACHING ── */
-  .teaching-block { margin-bottom: 2.5rem; }
-  .teaching-block:last-child { margin-bottom: 0; }
-
-  .teaching-block-header {
-    font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase;
-    letter-spacing: 0.12em; color: var(--muted); margin-bottom: 1rem;
-    padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
-  }
-  .teaching-block-header span {
-    font-style: italic; text-transform: none; letter-spacing: 0;
-    color: var(--accent); font-size: 0.7rem;
-  }
-
-  .course-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-  }
-  .course-item {
-    display: flex; align-items: baseline; gap: 1rem;
-    padding: 0.7rem 1rem; border-bottom: 1px solid var(--border);
-    transition: background 0.2s;
-  }
-  .course-item:hover { background: var(--highlight); }
-  .course-code {
-    font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
-    color: var(--accent); white-space: nowrap; min-width: 90px;
-  }
-  .course-name {
-    font-size: 0.88rem; color: var(--ink);
-  }
-  .teaching-note {
-    font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
-    margin-bottom: 1.5rem; font-style: italic;
-  }
-
-  @media (max-width: 768px) {
-    .course-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ── GALLERY ── */
-  .gallery-filter-bar {
-    display: flex; gap: 0.6rem; margin-bottom: 2rem; flex-wrap: wrap;
-  }
-  .gallery-filter-btn {
-    font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase;
-    letter-spacing: 0.06em; padding: 0.4rem 1rem; border: 1px solid var(--border);
-    background: none; color: var(--muted); cursor: pointer; transition: all 0.2s;
-  }
-  .gallery-filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .gallery-filter-btn.active {
-    background: var(--accent); color: white; border-color: var(--accent);
-  }
-
-  .gallery-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
-  }
-
-  .gallery-item {
-    position: relative; overflow: hidden; border: 1px solid var(--border);
-    aspect-ratio: 4/3; cursor: pointer; background: var(--highlight);
-    transition: all 0.3s ease;
-  }
-  .gallery-item.hidden { display: none; }
-  .gallery-item:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-
-  .gallery-item img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.4s ease;
-  }
-  .gallery-item:hover img { transform: scale(1.05); }
-
-  .gallery-overlay {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 1.2rem; background: linear-gradient(transparent, rgba(0,0,0,0.75));
-    transform: translateY(100%); transition: transform 0.3s ease;
-  }
-  .gallery-item:hover .gallery-overlay { transform: translateY(0); }
-
-  .gallery-overlay h4 {
-    font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
-    color: white; margin-bottom: 0.15rem;
-  }
-  .gallery-overlay span {
-    font-family: var(--mono); font-size: 0.65rem; color: rgba(255,255,255,0.7);
-    text-transform: uppercase; letter-spacing: 0.06em;
-  }
-
-  .gallery-placeholder {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
-    gap: 0.4rem;
-  }
-  .gallery-placeholder svg { opacity: 0.3; }
-
-  /* Lightbox */
-  .lightbox {
-    display: none; position: fixed; inset: 0; z-index: 1000;
-    background: rgba(0,0,0,0.9); align-items: center; justify-content: center;
-    opacity: 0; transition: opacity 0.3s ease;
-  }
-  .lightbox.active { display: flex; opacity: 1; }
-
-  .lightbox img {
-    max-width: 90vw; max-height: 85vh; object-fit: contain;
-    border: 2px solid rgba(255,255,255,0.1);
-  }
-
-  .lightbox-caption {
-    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-    text-align: center; color: white;
-  }
-  .lightbox-caption h4 {
-    font-family: var(--sans); font-size: 1rem; font-weight: 500; margin-bottom: 0.2rem;
-  }
-  .lightbox-caption span {
-    font-family: var(--mono); font-size: 0.72rem; color: rgba(255,255,255,0.6);
-    text-transform: uppercase; letter-spacing: 0.06em;
-  }
-
-  .lightbox-close {
-    position: absolute; top: 1.5rem; right: 2rem;
-    font-family: var(--mono); font-size: 1.5rem; color: rgba(255,255,255,0.6);
-    background: none; border: none; cursor: pointer; transition: color 0.2s;
-    line-height: 1;
-  }
-  .lightbox-close:hover { color: white; }
-
-  .lightbox-nav {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    font-size: 2rem; color: rgba(255,255,255,0.5); background: none;
-    border: none; cursor: pointer; transition: color 0.2s; padding: 1rem;
-  }
-  .lightbox-nav:hover { color: white; }
-  .lightbox-prev { left: 1rem; }
-  .lightbox-next { right: 1rem; }
-
-  .gallery-instructions {
-    font-family: var(--mono); font-size: 0.75rem; color: var(--muted);
-    margin-bottom: 2rem; padding: 1.2rem; border: 1px dashed var(--border);
-    background: white; line-height: 1.8;
-  }
-  .gallery-instructions code {
-    background: var(--highlight); padding: 0.15rem 0.4rem; font-size: 0.72rem;
-  }
-
-  @media (max-width: 768px) {
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 480px) {
-    .gallery-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ── ANIMATIONS ── */
-  .fade-in {
-    opacity: 0; transform: translateY(18px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .hero { grid-template-columns: 1fr; padding: 8rem 1.5rem 4rem; }
-    .hero-photo { width: 100%; height: 250px; min-height: unset; order: -1; }
-    .hero h1 { font-size: 2rem; padding-right: 0; }
-    nav ul { display: none; }
-    nav ul.open {
-      display: flex; flex-direction: column; position: fixed; inset: 0;
-      background: var(--paper); justify-content: center; align-items: center;
-      gap: 2.5rem; z-index: 105;
-    }
-    nav ul.open a { font-size: 1.1rem; }
-    .menu-toggle { display: block; }
-    .research-grid { grid-template-columns: 1fr; }
-    .pub-item { grid-template-columns: 1fr; gap: 0.3rem; }
-    .cv-entry { grid-template-columns: 1fr; gap: 0.3rem; }
-    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .skills-grid { grid-template-columns: 1fr; }
-    section { padding: 3.5rem 1.5rem; }
-    section h2 { font-size: 1.5rem; }
-  }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -481,10 +18,10 @@
     </button>
     <ul id="navMenu">
       <li><a href="#research">Research</a></li>
-      <li><a href="#experience">CV</a></li>
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#teaching">Teaching</a></li>
-      <li><a href="#skills">Skills</a></li>
+      <!-- <li><a href="#skills">Skills</a></li> -->
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -504,16 +41,16 @@
     </div>
   </div>
   <div class="hero-photo fade-in">
-  <img src="photos/profile.jpeg" alt="Shakib Mahmud Dipto">
-</div>
+    <img src="photos/profile.jpeg" alt="Shakib Mahmud Dipto">
+  </div>
 </header>
 
-<div class="divider"></div>
+<!-- <div class="divider"></div> -->
 
 <!-- RESEARCH -->
 <section id="research">
   <div class="fade-in">
-    <div class="section-label">01 — Research</div>
+    <div class="section-label">Research Interests</div>
     <h2>Research Interests</h2>
   </div>
   <div class="research-grid">
@@ -540,13 +77,13 @@
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- <div class="divider"></div> -->
 
 <!-- EXPERIENCE & EDUCATION -->
 <section id="experience">
   <div class="fade-in">
-    <div class="section-label">02 — Curriculum Vitae</div>
-    <h2>Education &amp; Experience</h2>
+    <div class="section-label">Education &amp; Experience</div>
+    <!-- <h2>Education &amp; Experience</h2> -->
   </div>
 
   <div class="cv-section fade-in">
@@ -650,13 +187,13 @@
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- <div class="divider"></div> -->
 
 <!-- PUBLICATIONS -->
 <section id="publications">
   <div class="fade-in">
-    <div class="section-label">03 — Publications</div>
-    <h2>Selected Publications</h2>
+    <div class="section-label">Publications</div>
+    <!-- <h2>Selected Publications</h2> -->
   </div>
 
   <div class="pub-filter-bar fade-in">
@@ -676,7 +213,8 @@
         <h3>Normalizing Images in Various Weather and Lighting Conditions Using ColorPix2Pix Generative Adversarial Network</h3>
         <p class="pub-authors">S. Tasnim, A.M. Mostafa, A. Morshed, N. Shaiyaz, <strong>Shakib Mahmud Dipto</strong>, S. Aloteibi, M.A. Moni, Md. G.R. Alam, Md. A. Alam</p>
         <span class="pub-venue">Scientific Reports, 2025</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="journal" href="https://doi.org/10.61882/jist.47968.13.51.232" target="_blank" rel="noopener">
@@ -685,7 +223,8 @@
         <h3>A Simulation Based Approach for Detecting Heart Disease Earlier from ECG Data</h3>
         <p class="pub-authors">Md. O. Rahaman, M.A. Kashem, S. Chakraborty, <strong>Shakib Mahmud Dipto</strong></p>
         <span class="pub-venue">Journal of Information Systems and Telecommunication (JIST), 2025</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="journal" href="https://doi.org/10.1109/ACCESS.2025.3574234" target="_blank" rel="noopener">
@@ -694,7 +233,8 @@
         <h3>An Analytical Review of Preprocessing Techniques in Bengali Natural Language Processing</h3>
         <p class="pub-authors">S. Chakraborty, P. Das, <strong>Shakib Mahmud Dipto</strong>, Md A. Pramanik, J. Noor</p>
         <span class="pub-venue">IEEE Access, 2025</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="journal" href="https://doi.org/10.1038/s41598-024-76359-0" target="_blank" rel="noopener">
@@ -703,7 +243,8 @@
         <h3>An Analysis of Decipherable Red Blood Cell Abnormality Detection Under Federated Environment Leveraging XAI Incorporated Deep Learning</h3>
         <p class="pub-authors"><strong>Shakib Mahmud Dipto</strong>, N.T. Mim, Md T. Reza, A. Ksibi, S. Alsenan, J. Uddin, Md A. Samad</p>
         <span class="pub-venue">Scientific Reports, 2024</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="journal" href="https://doi.org/10.1371/journal.pone.0303541" target="_blank" rel="noopener">
@@ -712,7 +253,8 @@
         <h3>Domain Affiliated Distilled Knowledge Transfer for Improved Convergence of Ph-negative MPN Identifier</h3>
         <p class="pub-authors">Md T. Reza, Md. G.R. Alam, R. Rahman, <strong>Shakib Mahmud Dipto</strong></p>
         <span class="pub-venue">PLOS ONE, 2024</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="journal" href="https://doi.org/10.11591/ijres.v13.i1.pp171-178" target="_blank" rel="noopener">
@@ -721,7 +263,8 @@
         <h3>Outlier Detection based Malaria Cell Image Classification Method Leveraging Deep Autoencoder</h3>
         <p class="pub-authors">A. Huq, Md T. Reza, S. Hossain, <strong>Shakib Mahmud Dipto</strong></p>
         <span class="pub-venue">Int. J. of Reconfigurable and Embedded Systems (IJRES), 2024</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="journal" href="#" onclick="return false;">
@@ -730,7 +273,8 @@
         <h3>DL-CAMS: Deep Learning Based Children Activity Monitoring System</h3>
         <p class="pub-authors">A.N. Bithi, M. Akter, Z.A. Mim, Md. F.B. Hafiz, <strong>Shakib Mahmud Dipto</strong></p>
         <span class="pub-venue">The Journal of Engineering, 2025 (Accepted)</span>
-      <span class="pub-external-icon">forthcoming</span></div>
+        <span class="pub-external-icon">forthcoming</span>
+      </div>
     </a>
 
     <!-- BOOK CHAPTERS -->
@@ -740,7 +284,8 @@
         <h3>On Handling AI Tasks in CPU with Low Latency and High Performance</h3>
         <p class="pub-authors">N. Hossain, <strong>Shakib Mahmud Dipto</strong>, S. Chakraborty, S.B. Saad, Z. Tasneem, A. Kowsar, F. Islam</p>
         <span class="pub-venue">ICAISC 2024 · Springer</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="book" href="https://doi.org/10.1007/978-3-031-33743-7_21" target="_blank" rel="noopener">
@@ -749,7 +294,8 @@
         <h3>A Power Efficient Solution to Determine Red Blood Cell Deformation Type Using Binarized DenseNet</h3>
         <p class="pub-authors">Md T. Reza, <strong>Shakib Mahmud Dipto</strong>, M.Z. Parvez</p>
         <span class="pub-venue">ACR 2023 · Springer</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="book" href="https://doi.org/10.1007/978-3-031-35308-6_26" target="_blank" rel="noopener">
@@ -758,7 +304,8 @@
         <h3>An XAI Integrated Identification System of White Blood Cell Type using Variants of Vision Transformer</h3>
         <p class="pub-authors"><strong>Shakib Mahmud Dipto</strong>, Md T. Reza, Md. N.J. Rahman, M.Z. Parvez</p>
         <span class="pub-venue">ICR 2023 · Springer</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="book" href="https://doi.org/10.1007/978-3-030-88163-4_33" target="_blank" rel="noopener">
@@ -767,7 +314,8 @@
         <h3>Interpretable COVID-19 Classification Leveraging Ensemble Neural Network and XAI</h3>
         <p class="pub-authors"><strong>Shakib Mahmud Dipto</strong>, I. Afifa, M.K. Sagor, Md. T. Reza, Md. A. Alam</p>
         <span class="pub-venue">BIOMESIP 2021 · Springer</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <!-- CONFERENCES -->
@@ -777,7 +325,8 @@
         <h3>An Improved Interpretable Transformer Based Approach for Identifying Kidney Abnormalities</h3>
         <p class="pub-authors"><strong>Shakib Mahmud Dipto</strong>, F.H. Bhoyan, S.R.A. Ratul, Md A. Islam, S.B. Saad, S. Chakraborty</p>
         <span class="pub-venue">STI 2024 · IEEE</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/i-COSTE63786.2024.11024978" target="_blank" rel="noopener">
@@ -786,7 +335,8 @@
         <h3>An Interpretable Transformer-Based Approach to Classify Malaria From Blood Cell Images</h3>
         <p class="pub-authors"><strong>Shakib Mahmud Dipto</strong>, M. Islam, S.M.A. Al Mamun, A.M. Esfar-E-Alam, Md K. Hossain, Md. A. Alam</p>
         <span class="pub-venue">i-COSTE 2024 · IEEE</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/C3IT60531.2024.10829469" target="_blank" rel="noopener">
@@ -795,7 +345,8 @@
         <h3>A Data-Driven Machine Learning Approach for Human Gender Classification Using Explainable AI</h3>
         <p class="pub-authors"><strong>Shakib Mahmud Dipto</strong>, A.B. Habib, N.T. Mim, S.I. Eunus, N.T. Orchi</p>
         <span class="pub-venue">C3IT 2024 · IEEE</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/iCACCESS61735.2024.10499517" target="_blank" rel="noopener">
@@ -804,7 +355,8 @@
         <h3>SmartCitrus: An Efficient Deep Learning Approach for Real-Time Detection and Classification of Citrus Leaf Diseases</h3>
         <p class="pub-authors">S.H. Emon, I.K. Islam, T.J. Nahin, A.M. Ahmed, N.T. Orchi, Md A. Alam, <strong>Shakib Mahmud Dipto</strong></p>
         <span class="pub-venue">iCACCESS 2024 · IEEE</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/iCACCESS61735.2024.10499466" target="_blank" rel="noopener">
@@ -813,7 +365,8 @@
         <h3>Violence Detection: A Multi-Model Approach Towards Automated Video Surveillance and Public Safety</h3>
         <p class="pub-authors">S. Chakraborty, S. Zahir, N.T. Orchi, Md F.B. Hafiz, A. Shamsuddoha, <strong>Shakib Mahmud Dipto</strong></p>
         <span class="pub-venue">iCACCESS 2024 · IEEE</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/iCACCESS61735.2024.10499630" target="_blank" rel="noopener">
@@ -822,7 +375,8 @@
         <h3>A Data-Driven Approach for Online Phishing Activity Detection</h3>
         <p class="pub-authors">K.I. Ahmad, A. Paul, Md F.B. Hafiz, S. Chakraborty, N.A. Khan, <strong>Shakib Mahmud Dipto</strong></p>
         <span class="pub-venue">iCACCESS 2024 · IEEE</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/ICCIT60459.2023.10441601" target="_blank" rel="noopener">
@@ -831,7 +385,8 @@
         <h3>RT-BERT: A Transformer Based Approach for Improved Rumor Classification from Tweet</h3>
         <p class="pub-authors"><strong>Shakib Mahmud Dipto</strong>, M.K. Sagor, A. Rozario, S.B. Saad</p>
         <span class="pub-venue">ICCIT 2023 · IEEE</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/AIIoT58121.2023.10174549" target="_blank" rel="noopener">
@@ -840,7 +395,8 @@
         <h3>PNEXAI: An Explainable AI-Driven Decipherable Pneumonia Classification System Leveraging Ensemble Neural Network</h3>
         <p class="pub-authors"><strong>Shakib Mahmud Dipto</strong>, Mst. N. Akhter, Md T. Reza, N.T. Mim, Md. A. Alam</p>
         <span class="pub-venue">IEEE World AI IoT Congress 2023</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/CSDE59766.2023.10487730" target="_blank" rel="noopener">
@@ -849,7 +405,8 @@
         <h3>An Efficient Deep Learning Approach to Detect Neurodegenerative Diseases Using Retinal Images</h3>
         <p class="pub-authors">C.M. Irfanuddin, W.I. Shafin, K. Ahmed, Md H. Khan, Md A. Alam, R. Rahman, <strong>Shakib Mahmud Dipto</strong></p>
         <span class="pub-venue">IEEE CSDE 2023</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/ICCIT57492.2022.10055691" target="_blank" rel="noopener">
@@ -858,7 +415,8 @@
         <h3>Detection of Coronary Artery Blockage at an Early Stage using Effective Deep Learning Technique</h3>
         <p class="pub-authors">T.A. Promit, Md A.R. Khan, N. Arnob, R.N. Rashid, A. Reza, Md. A. Alam, <strong>Shakib Mahmud Dipto</strong></p>
         <span class="pub-venue">ICCIT 2022 · IEEE</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/ICCIT57492.2022.10054999" target="_blank" rel="noopener">
@@ -867,7 +425,8 @@
         <h3>An Efficient Deep Learning Approach to detect Brain Tumor Using MRI Images</h3>
         <p class="pub-authors">A.T. Islam, S.M. Apu, S. Sarker, S.A. Shuvo, I.M. Hasan, Md. A. Alam, <strong>Shakib Mahmud Dipto</strong></p>
         <span class="pub-venue">ICCIT 2022 · IEEE</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/CSDE56538.2022.10089263" target="_blank" rel="noopener">
@@ -876,7 +435,8 @@
         <h3>Lossless Segmentation of Brain Tumors from MRI Images using 3D U-Net</h3>
         <p class="pub-authors">N.S. Nuha, R. Farha, S.H. Rafi, S.N. Sakib, Md S. Khan, <strong>Shakib Mahmud Dipto</strong>, Md T. Reza, Md A. Alam</p>
         <span class="pub-venue">IEEE CSDE 2022</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/CSDE53843.2021.9718454" target="_blank" rel="noopener">
@@ -885,7 +445,8 @@
         <h3>An Efficient Deep Learning Approach for Detecting Lung Disease from Chest X-ray Images</h3>
         <p class="pub-authors">M.K. Sagor, <strong>Shakib Mahmud Dipto</strong>, I. Jahan, S. Chowdhury, Md T. Reza, Md A. Alam</p>
         <span class="pub-venue">IEEE CSDE 2021</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/CSDE53843.2021.9718374" target="_blank" rel="noopener">
@@ -894,7 +455,8 @@
         <h3>Suitable Crop Suggesting System Based on NPK Values Using Machine Learning Models</h3>
         <p class="pub-authors"><strong>Shakib Mahmud Dipto</strong>, A. Iftekher, T. Ghosh, Md T. Reza, Md A. Alam</p>
         <span class="pub-venue">IEEE CSDE 2021</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
     <a class="pub-item fade-in" data-type="conference" href="https://doi.org/10.1109/CSDE50874.2020.9411582" target="_blank" rel="noopener">
@@ -903,19 +465,20 @@
         <h3>Evaluation of Earthquake Resistance of Urban Buildings using Image Processing and Machine Learning Techniques</h3>
         <p class="pub-authors">T. Rahman, Y. Ahmed, T. Alam, Md H.R. Shakil, Md T. Hossain, F.N. Khan, <strong>Shakib Mahmud Dipto</strong>, M.R. Akhond, Md A. Alam</p>
         <span class="pub-venue">IEEE CSDE 2020</span>
-      <span class="pub-external-icon">view paper ↗</span></div>
+        <span class="pub-external-icon">view paper ↗</span>
+      </div>
     </a>
 
-  </ul>
+  </div>
 </section>
 
-<div class="divider"></div>
+<!-- <div class="divider"></div> -->
 
 <!-- TEACHING -->
 <section id="teaching">
   <div class="fade-in">
-    <div class="section-label">04 — Teaching</div>
-    <h2>Courses Taught</h2>
+    <div class="section-label">Teaching History</div>
+    <!-- <h2>Courses Taught</h2> -->
   </div>
 
   <div class="teaching-block fade-in">
@@ -1013,12 +576,11 @@
       </div>
     </div>
   </div>
-
 </section>
 
-<div class="divider"></div>
+<!-- <div class="divider"></div> -->
 
-<!-- SKILLS -->
+<!-- SKILLS
 <section id="skills">
   <div class="fade-in">
     <div class="section-label">05 — Technical</div>
@@ -1050,15 +612,15 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
-<div class="divider"></div>
+<!-- <div class="divider"></div> -->
 
 <!-- GALLERY -->
 <section id="gallery">
   <div class="fade-in">
-    <div class="section-label">06 — Gallery</div>
-    <h2>Photo Gallery</h2>
+    <div class="section-label">Visuals of Life</div>
+    <!-- <h2>Photo Gallery</h2> -->
   </div>
 
   <div class="gallery-filter-bar fade-in">
@@ -1078,7 +640,6 @@
 
   <div class="gallery-grid fade-in">
 
-    <!-- SAMPLE ITEMS — replace src with your actual photos -->
     <div class="gallery-item" data-event="conference" onclick="openLightbox(0)">
       <div class="gallery-placeholder">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
@@ -1160,13 +721,13 @@
   </div>
 </div>
 
-<div class="divider"></div>
+<!-- <div class="divider"></div> -->
 
 <!-- CONTACT -->
 <section id="contact">
   <div class="fade-in">
-    <div class="section-label">07 — Contact</div>
-    <h2>Get in Touch</h2>
+    <div class="section-label">Let's Connect</div>
+    <!-- <h2>Get in Touch</h2> -->
   </div>
   <div class="contact-grid fade-in">
     <div class="contact-text">
@@ -1195,138 +756,6 @@
   <a href="#top" class="back-to-top">↑ Back to top</a>
 </footer>
 
-<script>
-  // Navbar scroll
-  const nav = document.getElementById('navbar');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
-
-  // Mobile menu
-  const menuToggle = document.getElementById('menuToggle');
-  const navMenu = document.getElementById('navMenu');
-  menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('active');
-    navMenu.classList.toggle('open');
-  });
-  navMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      menuToggle.classList.remove('active');
-      navMenu.classList.remove('open');
-    });
-  });
-
-  // Scroll-triggered fade-in
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-  // Publication filter
-  const filterBtns = document.querySelectorAll('.pub-filter-btn');
-  const pubItems = document.querySelectorAll('.pub-item');
-  const pubCount = document.getElementById('pubCount');
-
-  function updateCount() {
-    const visible = document.querySelectorAll('.pub-item:not(.hidden)').length;
-    pubCount.textContent = `Showing ${visible} of ${pubItems.length} publications`;
-  }
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      pubItems.forEach(item => {
-        if (filter === 'all' || item.dataset.type === filter) {
-          item.classList.remove('hidden');
-        } else {
-          item.classList.add('hidden');
-        }
-      });
-      updateCount();
-    });
-  });
-  updateCount();
-
-  // Gallery filter
-  const galleryFilterBtns = document.querySelectorAll('.gallery-filter-btn');
-  const galleryItems = document.querySelectorAll('.gallery-item');
-
-  galleryFilterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      galleryFilterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      galleryItems.forEach(item => {
-        if (filter === 'all' || item.dataset.event === filter) {
-          item.classList.remove('hidden');
-        } else {
-          item.classList.add('hidden');
-        }
-      });
-    });
-  });
-
-  // Lightbox
-  let currentLightbox = 0;
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightboxImg');
-  const lightboxTitle = document.getElementById('lightboxTitle');
-  const lightboxEvent = document.getElementById('lightboxEvent');
-
-  function getVisibleItems() {
-    return [...document.querySelectorAll('.gallery-item:not(.hidden)')];
-  }
-
-  function openLightbox(index) {
-    const items = getVisibleItems();
-    if (index < 0 || index >= items.length) return;
-    currentLightbox = index;
-    const item = items[index];
-    const img = item.querySelector('img');
-    const title = item.querySelector('.gallery-overlay h4');
-    const event = item.querySelector('.gallery-overlay span');
-
-    if (img) {
-      lightboxImg.src = img.src;
-      lightboxImg.style.display = 'block';
-    } else {
-      lightboxImg.style.display = 'none';
-    }
-    lightboxTitle.textContent = title ? title.textContent : '';
-    lightboxEvent.textContent = event ? event.textContent : '';
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLightbox() {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  function navLightbox(dir) {
-    const items = getVisibleItems();
-    currentLightbox = (currentLightbox + dir + items.length) % items.length;
-    openLightbox(currentLightbox);
-  }
-
-  // Close on backdrop click
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
-  });
-
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('active')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') navLightbox(-1);
-    if (e.key === 'ArrowRight') navLightbox(1);
-  });
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
