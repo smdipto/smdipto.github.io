@@ -1,0 +1,177 @@
+<h2 class="sr-only">Interactive composite trust score calculator showing how four signals combine into a single trust weight for different client types</h2>
+<style>
+  .sig-row { display:flex; align-items:center; gap:10px; margin:6px 0; font-size:14px; }
+  .sig-label { width:110px; color:var(--color-text-secondary); }
+  .sig-val { min-width:40px; text-align:right; font-weight:500; }
+  .client-card { background:var(--color-background-secondary); border-radius:var(--border-radius-lg); padding:14px 16px; }
+  .client-title { font-weight:500; font-size:15px; margin:0 0 8px; }
+  .score-bar { height:8px; border-radius:4px; margin:8px 0 4px; transition:width 0.3s; }
+  .score-num { font-size:22px; font-weight:500; }
+  .weight-row { display:flex; align-items:center; gap:8px; margin:5px 0; font-size:13px; }
+  .weight-label { width:100px; color:var(--color-text-secondary); }
+  .weight-val { min-width:32px; text-align:right; font-weight:500; font-size:13px; }
+  .thresh-line { height:2px; background:var(--color-text-danger); margin:6px 0; opacity:0.5; }
+</style>
+
+<div style="padding:0.5rem 0;">
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+    <div>
+      <p style="font-size:14px;font-weight:500;margin:0 0 8px;color:var(--color-text-secondary);">Signal weights (must sum to 1.0)</p>
+      <div class="weight-row">
+        <span class="weight-label">Acc ratio</span>
+        <input type="range" min="0" max="100" value="35" step="5" id="w_acc" style="flex:1" oninput="update()">
+        <span class="weight-val" id="w_acc_v">0.35</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">Loss ratio</span>
+        <input type="range" min="0" max="100" value="25" step="5" id="w_loss" style="flex:1" oninput="update()">
+        <span class="weight-val" id="w_loss_v">0.25</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">Cosine sim</span>
+        <input type="range" min="0" max="100" value="25" step="5" id="w_cos" style="flex:1" oninput="update()">
+        <span class="weight-val" id="w_cos_v">0.25</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">Grad norm</span>
+        <input type="range" min="0" max="100" value="15" step="5" id="w_grad" style="flex:1" oninput="update()">
+        <span class="weight-val" id="w_grad_v">0.15</span>
+      </div>
+      <p style="font-size:12px;color:var(--color-text-tertiary);margin:6px 0 0" id="sum_warn"></p>
+    </div>
+    <div>
+      <p style="font-size:14px;font-weight:500;margin:0 0 8px;color:var(--color-text-secondary);">Adaptive threshold</p>
+      <div class="weight-row">
+        <span class="weight-label">k value</span>
+        <input type="range" min="0.5" max="3.0" value="1.5" step="0.1" id="k_val" style="flex:1" oninput="update()">
+        <span class="weight-val" id="k_val_v">1.5</span>
+      </div>
+      <p style="font-size:12px;color:var(--color-text-tertiary);margin:6px 0 0;">Threshold = mean - k * std</p>
+      <p style="font-size:13px;margin:10px 0 0;">Threshold: <span style="font-weight:500" id="thresh_v">—</span></p>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
+    <div class="client-card" id="card_healthy">
+      <p class="client-title" style="color:#085041">Healthy client</p>
+      <div class="sig-row"><span class="sig-label">Acc ratio</span><span class="sig-val">0.98</span></div>
+      <div class="sig-row"><span class="sig-label">Loss ratio</span><span class="sig-val">1.02</span></div>
+      <div class="sig-row"><span class="sig-label">Cosine sim</span><span class="sig-val">0.97</span></div>
+      <div class="sig-row"><span class="sig-label">Grad norm</span><span class="sig-val">0.8</span></div>
+      <div style="border-top:0.5px solid var(--color-border-tertiary);margin-top:10px;padding-top:10px">
+        <span style="font-size:12px;color:var(--color-text-secondary)">Composite score</span>
+        <div style="display:flex;align-items:baseline;gap:8px">
+          <span class="score-num" id="score_healthy">—</span>
+          <span style="font-size:12px;font-weight:500" id="status_healthy"></span>
+        </div>
+        <div style="background:var(--color-border-tertiary);border-radius:4px;height:8px;margin-top:6px">
+          <div class="score-bar" id="bar_healthy" style="background:#0F6E56;width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="client-card" id="card_flipper">
+      <p class="client-title" style="color:#993C1D">Label-flip attacker</p>
+      <div class="sig-row"><span class="sig-label">Acc ratio</span><span class="sig-val">0.52</span></div>
+      <div class="sig-row"><span class="sig-label">Loss ratio</span><span class="sig-val">0.40</span></div>
+      <div class="sig-row"><span class="sig-label">Cosine sim</span><span class="sig-val">0.61</span></div>
+      <div class="sig-row"><span class="sig-label">Grad norm</span><span class="sig-val">4.2</span></div>
+      <div style="border-top:0.5px solid var(--color-border-tertiary);margin-top:10px;padding-top:10px">
+        <span style="font-size:12px;color:var(--color-text-secondary)">Composite score</span>
+        <div style="display:flex;align-items:baseline;gap:8px">
+          <span class="score-num" id="score_flipper">—</span>
+          <span style="font-size:12px;font-weight:500" id="status_flipper"></span>
+        </div>
+        <div style="background:var(--color-border-tertiary);border-radius:4px;height:8px;margin-top:6px">
+          <div class="score-bar" id="bar_flipper" style="background:#993C1D;width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="client-card" id="card_stealthy">
+      <p class="client-title" style="color:#854F0B">Stealthy attacker</p>
+      <div class="sig-row"><span class="sig-label">Acc ratio</span><span class="sig-val">0.91</span></div>
+      <div class="sig-row"><span class="sig-label">Loss ratio</span><span class="sig-val">0.85</span></div>
+      <div class="sig-row"><span class="sig-label">Cosine sim</span><span class="sig-val">0.78</span></div>
+      <div class="sig-row"><span class="sig-label">Grad norm</span><span class="sig-val">2.1</span></div>
+      <div style="border-top:0.5px solid var(--color-border-tertiary);margin-top:10px;padding-top:10px">
+        <span style="font-size:12px;color:var(--color-text-secondary)">Composite score</span>
+        <div style="display:flex;align-items:baseline;gap:8px">
+          <span class="score-num" id="score_stealthy">—</span>
+          <span style="font-size:12px;font-weight:500" id="status_stealthy"></span>
+        </div>
+        <div style="background:var(--color-border-tertiary);border-radius:4px;height:8px;margin-top:6px">
+          <div class="score-bar" id="bar_stealthy" style="background:#854F0B;width:0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const clients = {
+  healthy:  { acc:0.98, loss:1.02, cos:0.97, grad:0.8 },
+  flipper:  { acc:0.52, loss:0.40, cos:0.61, grad:4.2 },
+  stealthy: { acc:0.91, loss:0.85, cos:0.78, grad:2.1 },
+};
+
+function computeScore(c, wA, wL, wC, wG) {
+  const normGrad = 1.0 / (1.0 + c.grad);
+  const raw = wA * c.acc + wL * Math.min(c.loss, 2.0) + wC * Math.max(c.cos, 0.0) + wG * normGrad;
+  return Math.max(0, Math.min(1, raw));
+}
+
+function update() {
+  const rA = +document.getElementById('w_acc').value;
+  const rL = +document.getElementById('w_loss').value;
+  const rC = +document.getElementById('w_cos').value;
+  const rG = +document.getElementById('w_grad').value;
+  const total = rA + rL + rC + rG;
+
+  const wA = rA/total, wL = rL/total, wC = rC/total, wG = rG/total;
+  document.getElementById('w_acc_v').textContent = wA.toFixed(2);
+  document.getElementById('w_loss_v').textContent = wL.toFixed(2);
+  document.getElementById('w_cos_v').textContent = wC.toFixed(2);
+  document.getElementById('w_grad_v').textContent = wG.toFixed(2);
+
+  const warn = document.getElementById('sum_warn');
+  if (total === 0) { warn.textContent = 'All weights are zero'; return; }
+  warn.textContent = total !== 100 ? 'Auto-normalized to sum = 1.0' : '';
+
+  const k = +document.getElementById('k_val').value;
+  document.getElementById('k_val_v').textContent = k.toFixed(1);
+
+  const scores = {};
+  for (const [name, c] of Object.entries(clients)) {
+    scores[name] = computeScore(c, wA, wL, wC, wG);
+  }
+
+  const vals = Object.values(scores);
+  const mean = vals.reduce((a,b) => a+b, 0) / vals.length;
+  const std = Math.sqrt(vals.reduce((a,b) => a + (b-mean)**2, 0) / vals.length) + 1e-8;
+  const threshold = Math.max(mean - k * std, 0.05);
+  document.getElementById('thresh_v').textContent = threshold.toFixed(4);
+
+  for (const [name, score] of Object.entries(scores)) {
+    const above = score >= threshold;
+    let adjusted = score;
+    if (!above) {
+      const decay = Math.exp(-5.0 * (threshold - score));
+      adjusted = score * decay;
+    }
+
+    document.getElementById('score_' + name).textContent = score.toFixed(4);
+    document.getElementById('bar_' + name).style.width = (score * 100).toFixed(1) + '%';
+
+    const statusEl = document.getElementById('status_' + name);
+    if (above) {
+      statusEl.textContent = 'above threshold';
+      statusEl.style.color = 'var(--color-text-success)';
+    } else {
+      statusEl.textContent = 'below (' + adjusted.toFixed(4) + ' after decay)';
+      statusEl.style.color = 'var(--color-text-danger)';
+    }
+  }
+}
+update();
+</script>
